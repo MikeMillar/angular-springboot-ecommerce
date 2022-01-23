@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
         <div class="container-fluid">
-            
+
             <!-- Check if any items in cart -->
             <div *ngIf="cartItems.length > 0">
                 <table class="table table-bordered">
@@ -25,8 +25,27 @@
 
                             <td>
                                 <div class="items">
-                                    <label>Quantity:</label> {{ cartItem.quantity }}
+                                    <label>Quantity:</label>
+                                    <div class="row no-gutters">
+                                        <div class="col">
+                                            <button (click)="incrementQuantity(cartItem)"
+                                                class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div class="col ml-4 mr-2">
+                                            {{ cartItem.quantity }}
+                                        </div>
+
+                                        <div class="col">
+                                            <button (click)="decrementQuantity(cartItem)"
+                                                class="btn btn-primary btn-sm"><i class="fas fa-minus"></i></button>
+                                        </div>
+
+                                        <div class="col-8"></div>
+                                    </div>
                                 </div>
+
+                                <button (click)="removeCartItem(cartItem)"
+                                        class="btn btn-primary btn-sm" style="margin-top: 10px;">Remove</button>
 
                                 <p class="mt-2">Subtotal: {{ cartItem.quantity * cartItem.unitPrice | currency:'USD' }}
                                 </p>
