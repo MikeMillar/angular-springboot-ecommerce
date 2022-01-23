@@ -11,8 +11,12 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[]= [];
+
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
+
+  previousKeyword: string = "";
+
   searchMode: boolean = false;
 
   // properties for pagination
@@ -77,6 +81,12 @@ export class ProductListComponent implements OnInit {
 
   handleSearchProducts() {
     const theKeyword = this.route.snapshot.paramMap.get('keyword')!;
+
+    if (this.previousKeyword != theKeyword) {
+      this.thePageNumber = 1;
+    }
+
+    this.previousKeyword = theKeyword;
 
     // now search for the products using keyword
     this.productService.searchProductsPaginate(this.thePageNumber - 1,
