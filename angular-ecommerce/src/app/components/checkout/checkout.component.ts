@@ -24,7 +24,7 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
-        private luv2ShopFormService: Luv2ShopFormService) { }
+    private luv2ShopFormService: Luv2ShopFormService) { }
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
@@ -71,7 +71,7 @@ export class CheckoutComponent implements OnInit {
         this.creditCardYears = data;
       }
     )
-    
+
     // populate countries
     this.luv2ShopFormService.getCountries().subscribe(
       data => {
@@ -91,9 +91,15 @@ export class CheckoutComponent implements OnInit {
 
     if (event.target.checked) {
       this.checkoutFormGroup.controls['billingAddress']
-          .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+        .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+
+      // bug fix for states
+      this.billingAddressStates = this.shippingAddressStates;
     } else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
+
+      // buf fix for states
+      this.billingAddressStates = [];
     }
 
   }
@@ -139,7 +145,7 @@ export class CheckoutComponent implements OnInit {
         formGroup?.get('state')?.setValue(data[0]);
       }
     )
-    
+
   }
 
 }
