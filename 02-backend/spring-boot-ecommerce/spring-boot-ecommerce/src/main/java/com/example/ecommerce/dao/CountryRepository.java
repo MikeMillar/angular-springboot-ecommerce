@@ -1,8 +1,18 @@
 package com.example.ecommerce.dao;
-/** 
-  * created by:
-  *  author: MichaelMillar
-  *  date: 1/23/2022
-  */
-public interface CountryRepository {
+
+import com.example.ecommerce.entity.Country;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+/**
+ * created by:
+ * author: MichaelMillar
+ * date: 1/23/2022
+ */
+@CrossOrigin("http://localhost:4200")
+@RepositoryRestResource(collectionResourceRel = "countries", path = "countries")
+public interface CountryRepository extends JpaRepository<Country, Long> {
+
+
 }

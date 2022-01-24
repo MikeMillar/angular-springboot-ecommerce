@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -13,7 +14,11 @@ export class CheckoutComponent implements OnInit {
   totalPrice: number = 0.00;
   totalQuantity: number = 0;
 
-  constructor(private formBuilder: FormBuilder) { }
+  creditCardYears: number[] = [];
+  creditCardMonths: number[] = [];
+
+  constructor(private formBuilder: FormBuilder,
+        private luv2ShopFormService: Luv2ShopFormService) { }
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
@@ -45,6 +50,24 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
+
+    // populate credit card months
+    const startMonth: number = new Date().getMonth() + 1;
+    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCardMonths = data;
+      }
+    );
+
+    // populate credit card years
+    this.luv2ShopFormService.getCreditCardYears().subscribe(
+      data => {
+        this.creditCardYears = data;
+      }
+    )
+    
+
+
   }
 
   onSubmit() {
@@ -59,6 +82,29 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
     }
+
+  }
+
+  handleMonthsAndYears() {
+    const creditCardFromGroup = this.checkoutFormGroup.get('creditCard');
+    const currentYear = new Date().getFullYear();
+    const selectedYear: number = Number(creditCardFromGroup?.value.expirationYear);
+
+    // if current year = selected year, then start with current month
+
+    let startMonth: number;
+
+    if (currentYear === selectedYear) {
+      startMonth = new Date().getMonth() + 1;
+    } else {
+      startMonth = 1;
+    }
+
+    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCardMonths = data;
+      }
+    );
 
   }
 
