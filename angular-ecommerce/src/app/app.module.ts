@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart-service';
 import { Luv2ShopFormService } from './services/luv2-shop-form.service';
+import { CheckoutService } from './services/checkout.service';
 
 import { Routes, RouterModule } from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
@@ -18,7 +19,6 @@ import { CartStatusComponent } from './components/cart-status/cart-status.compon
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CheckoutService } from './services/checkout.service';
 
 
 const routes: Routes = [

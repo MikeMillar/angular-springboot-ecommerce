@@ -385,7 +385,7 @@
                                 <input formControlName="securityCode" type="text">
 
                                 <div *ngIf="securityCode!.invalid && (securityCode!.dirty || securityCode!.touched)" class="alert alert-danger">
-                                    <div *ngIf="cardNumber!.errors!['required']">
+                                    <div *ngIf="securityCode!.errors!['required']">
                                         Security code is required
                                     </div>
 
